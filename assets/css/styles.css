@@ -301,6 +301,7 @@ input {
   height: 100vh;
   object-fit: cover;
   object-position: 83%;
+  filter: brightness(50%);
 }
 
 .home__container {
