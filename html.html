@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lịch Bay</title>
+    <style>
+        /* =============== FLIGHT SCHEDULE =============== */
+        .flight-schedule {
+            padding: 4.5rem 0 2.5rem;
+        }
+
+        .flight-schedule__container {
+            max-width: 968px;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 0 1rem;
+        }
+
+        .section__title {
+            font-size: 1.75rem;
+            color: #333;
+            text-align: center;
+            text-transform: capitalize;
+            margin-bottom: 2rem;
+        }
+
+        .flight-schedule__card {
+            background-color: #fff;
+            border-radius: 1rem;
+            box-shadow: 0 4px 16px rgba(14, 55, 63, 0.15);
+            overflow: hidden;
+            transition: .3s;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .flight-schedule__card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 24px rgba(14, 55, 63, 0.2);
+        }
+
+        .flight-schedule__route {
+            background-color: #1a4a5a;
+            padding: 1.5rem;
+            color: #fff;
+        }
+
+        .flight-schedule__title {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            color: #fff;
+            text-align: center;
+        }
+
+        .flight-schedule__info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .flight-schedule__flight {
+            font-weight: 600;
+            font-size: 0.938rem;
+        }
+
+        .flight-schedule__time {
+            font-weight: 600;
+            font-size: 0.938rem;
+        }
+
+        .flight-schedule__details {
+            padding: 1.5rem;
+        }
+
+        .flight-schedule__detail-group {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .flight-schedule__detail {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .flight-schedule__label {
+            font-weight: 600;
+            color: #333;
+            font-size: 0.938rem;
+        }
+
+        .flight-schedule__value {
+            color: #666;
+            text-align: right;
+            font-size: 0.813rem;
+        }
+
+        /* =============== ANIMATION CONTAINER =============== */
+        .animation-container {
+            width: 100%;
+            height: 200px;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 2rem;
+            border-radius: 0.75rem;
+            background-color: #f8f9fa;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .animation-text {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            transition: transform 0.5s ease-in-out;
+        }
+        
+        .date-animation {
+            background-color: #f8f9fa;
+            transform: translateX(100%);
+        }
+        
+        .route-animation {
+            background-color: #f8f9fa;
+            transform: translateX(0);
+        }
+
+        /* =============== FLIGHT ANIMATION =============== */
+        .flight-animation {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .airplane {
+            font-size: 3rem;
+            animation: zoomInOut 3s infinite alternate;
+        }
+
+        @keyframes zoomInOut {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.2);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        /* =============== ROUTE INFO =============== */
+        .route-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .route-card {
+            background-color: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .route-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+        }
+
+        .route-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .route-desc {
+            font-size: 0.875rem;
+            color: #666;
+            line-height: 1.4;
+        }
+
+        /* For medium devices */
+        @media screen and (min-width: 768px) {
+            .flight-schedule__card {
+                max-width: 600px;
+            }
+            
+            .flight-schedule__detail-group {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+            
+            .flight-schedule__detail {
+                flex-direction: column;
+                align-items: flex-start;
+                border-bottom: none;
+                padding-bottom: 0;
+            }
+            
+            .flight-schedule__value {
+                text-align: left;
+                margin-top: 0.25rem;
+            }
+
+            .route-info {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media screen and (max-width: 767px) {
+            .animation-container {
+                height: 150px;
+            }
+            
+            .animation-text {
+                font-size: 1.25rem;
+            }
+            
+            .route-info {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!--==================== FLIGHT SCHEDULE ====================-->
+    <section class="flight-schedule section" id="flight">
+        <h2 class="section__title">LỊCH BAY MIỀN NAM</h2>
+        
+        <div class="flight-schedule__container container">
+            <!-- Animation Container -->
+            <div class="animation-container">
+                <div class="flight-animation">
+                    <div class="airplane">✈️</div>
+                </div>
+                <div class="animation-text date-animation" id="dateAnimation">
+                    <div>26 - 11 - 2025</div>
+                </div>
+                <div class="animation-text route-animation" id="routeAnimation">
+                    <div>THÁI LAN - TP.HCM</div>
+                </div>
+            </div>
+            
+            <!-- Flight Schedule Card -->
+            <div class="flight-schedule__card">
+                <div class="flight-schedule__route">
+                    <div class="flight-schedule__direction">
+                        <h3 class="flight-schedule__title">TP.HCM - THÁI LAN</h3>
+                        <div class="flight-schedule__info">
+                            <div class="flight-schedule__flight">VJ891 SGN-CNX</div>
+                            <div class="flight-schedule__time">11:25 - 13:30</div>
+                        </div>
+                    </div>
+                    
+                    <div class="flight-schedule__direction">
+                        <h3 class="flight-schedule__title">THÁI LAN - TP.HCM</h3>
+                        <div class="flight-schedule__info">
+                            <div class="flight-schedule__flight">VJ892 CNX-SGN</div>
+                            <div class="flight-schedule__time">13:45 - 15:55</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flight-schedule__details">
+                    <div class="flight-schedule__detail-group">
+                        <div class="flight-schedule__detail">
+                            <span class="flight-schedule__label">GỬ TẬP TRUNG</span>
+                            <span class="flight-schedule__value">09:00</span>
+                        </div>
+                        
+                        <div class="flight-schedule__detail">
+                            <span class="flight-schedule__label">CỘT 6-8</span>
+                            <span class="flight-schedule__value">GA QUỐC TẾ LẦU 2</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Route Info -->
+            <div class="route-info">
+                <div class="route-card">
+                    <h3 class="route-title">Tuyến Đi</h3>
+                    <p class="route-desc">TP.HCM → THÁI LAN<br>Chuyến bay VJ891 SGN-CNX</p>
+                </div>
+                
+                <div class="route-card">
+                    <h3 class="route-title">Tuyến Về</h3>
+                    <p class="route-desc">THÁI LAN → TP.HCM<br>Chuyến bay VJ892 CNX-SGN</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Hiệu ứng chuyển đổi ngày và tuyến bay
+        function animateText() {
+            const dateAnimation = document.getElementById('dateAnimation');
+            const routeAnimation = document.getElementById('routeAnimation');
+            
+            // Hiệu ứng 1: Date trượt qua trái, Route vào giữa
+            setTimeout(() => {
+                dateAnimation.style.transform = 'translateX(-100%)';
+                routeAnimation.style.transform = 'translateX(0)';
+            }, 2000);
+            
+            // Hiệu ứng 2: Route trượt qua trái, Date trở về giữa
+            setTimeout(() => {
+                routeAnimation.style.transform = 'translateX(-100%)';
+                dateAnimation.style.transform = 'translateX(0)';
+            }, 4000);
+        }
+        
+        // Chạy lần đầu
+        document.addEventListener('DOMContentLoaded', function() {
+            // Bắt đầu với Date ở giữa, Route ở bên phải
+            document.getElementById('dateAnimation').style.transform = 'translateX(0)';
+            document.getElementById('routeAnimation').style.transform = 'translateX(100%)';
+            
+            // Lặp lại hiệu ứng mỗi 4 giây
+            setInterval(animateText, 4000);
+        });
+    </script>
+</body>
+</html>
