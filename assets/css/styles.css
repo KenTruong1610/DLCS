@@ -302,7 +302,7 @@ input {
   object-fit: cover;
   object-position: 83%;
   opacity: 0.5;  
-  filter: alpha(opacity=50);
+  filter: alpha(opacity=20);
 }
 
 .home__container {
