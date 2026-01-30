@@ -36,5 +36,6 @@ If you'd like to contribute:
 
 ---
 Copyright: Hatimedia - MIT LICENSE
+Co-authored-by:Hatimedia <hatimedia.2000@email.com>
 
 
