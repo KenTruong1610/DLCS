@@ -35,4 +35,6 @@ If you'd like to contribute:
 3. Submit a PR
 
 ---
+Copyright: Hatimedia - MIT LICENSE
+
 
