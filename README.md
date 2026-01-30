@@ -19,7 +19,7 @@
 
 1. Download or clone this repository:
    ```bash
-   https://github.com/KenTruong1610/Portfolio.git
+   https://kentruong1610.github.io/DLCS/
    ```
 2. Feedback in form in code.
 
